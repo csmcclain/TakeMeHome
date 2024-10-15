@@ -1,0 +1,11 @@
+name: TakeMeHome
+version: '1.0.0-SNAPSHOT'
+main: com.csmcclain.takeMeHome.TakeMeHome
+api-version: '1.21.0'
+commands:
+  home:
+    description: Take you home
+    usage: /home
+  back:
+    description: Take you back
+    usage: /back
