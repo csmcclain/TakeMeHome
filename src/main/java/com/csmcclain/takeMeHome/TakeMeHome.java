@@ -11,9 +11,9 @@ import com.csmcclain.takeMeHome.commands.SetHomeCommand;
 import com.csmcclain.takeMeHome.commands.UpdateHomeCommand;
 import com.csmcclain.takeMeHome.datastorage.PlayerHome;
 import com.csmcclain.takeMeHome.datastorage.PlayerStore;
-import com.csmcclain.takeMeHome.datastorage.StoredLocation;
+import com.csmcclain.takeMeHome.datastorage.depricated.StoredLocation;
 import com.csmcclain.takeMeHome.datastorage.UserHomeStore;
-import com.csmcclain.takeMeHome.datastorage.UserLocationStore;
+import com.csmcclain.takeMeHome.datastorage.depricated.UserLocationStore;
 import com.csmcclain.takeMeHome.tabcompleters.EmptyTabCompleter;
 import com.csmcclain.takeMeHome.tabcompleters.PlayerHomesTabCompleter;
 import com.google.gson.Gson;
@@ -133,7 +133,7 @@ public final class TakeMeHome extends JavaPlugin {
     private void registerPlugin(String pluginName, BaseCommand command, TabCompleter completer) {
         String commandClassName = command.getClass().getSimpleName();
         String tabCompleterClassName = completer.getClass().getSimpleName();
-        logger.info("Registering Command: " + commandClassName + " with TabCompleter: " + tabCompleterClassName);
+        logger.info("Registering Command: {} with TabCompleter: {}", commandClassName, tabCompleterClassName);
         PluginCommand listHome = Objects.requireNonNull(this.getCommand(pluginName));
         listHome.setExecutor(command);
         listHome.setTabCompleter(completer);

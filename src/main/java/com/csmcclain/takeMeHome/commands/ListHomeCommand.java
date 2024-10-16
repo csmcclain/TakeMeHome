@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 
+@SuppressWarnings("ExtractMethodRecommender")
 public class ListHomeCommand extends BaseCommand {
 
 

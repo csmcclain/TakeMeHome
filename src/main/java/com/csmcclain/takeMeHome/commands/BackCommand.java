@@ -27,9 +27,9 @@ public class BackCommand extends BaseCommand {
         if (back == null) {
             player.sendMessage(Component.text("You have not set a home/back yet", NamedTextColor.RED));
         } else {
-            player.teleportAsync(back.toLocation()).thenAccept(success -> {
-                player.sendMessage(Component.text("You've been teleported back", NamedTextColor.GRAY));
-            });
+            player.teleportAsync(back.toLocation()).thenAccept(success ->
+                player.sendMessage(Component.text("You've been teleported back", NamedTextColor.GRAY))
+            );
         }
 
         return true;

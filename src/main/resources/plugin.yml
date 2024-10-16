@@ -11,7 +11,7 @@ commands:
     usage: "Usage: /sethome <home>"
   listhome:
     description: Lists player's saved homes
-    usage: "Usage: /listhomes"
+    usage: "Usage: /listhome"
   updatehome:
     description: Updates a player's home with new location
     usage: "Usage: /updatehome <home>"
