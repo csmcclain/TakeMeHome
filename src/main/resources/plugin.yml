@@ -4,7 +4,7 @@ main: com.csmcclain.takeMeHome.TakeMeHome
 api-version: '1.21.1'
 commands:
   home:
-    description: Takes a player to their specified home
+    description: Takes a player to their specified home or to default if no home is specified
     usage: "Usage: /home <optional home name if not teleporting to default>"
   sethome:
     description: Adds a home to the player's saved homes
