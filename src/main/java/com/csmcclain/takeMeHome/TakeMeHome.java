@@ -1,13 +1,12 @@
 package com.csmcclain.takeMeHome;
 
-import com.csmcclain.takeMeHome.commands.BackCommand;
-import com.csmcclain.takeMeHome.commands.EmptyTabCompleter;
-import com.csmcclain.takeMeHome.commands.HomeCommand;
-import com.csmcclain.takeMeHome.commands.SetHomeCommand;
+import com.csmcclain.takeMeHome.commands.*;
 import com.csmcclain.takeMeHome.datastorage.*;
+import com.csmcclain.takeMeHome.tabcompleters.EmptyTabCompleter;
 import com.google.gson.Gson;
 import net.kyori.adventure.text.logger.slf4j.ComponentLogger;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -67,24 +66,16 @@ public final class TakeMeHome extends JavaPlugin {
                 logger.info("Migration complete");
             }
             logger.info("Loaded user data into UserHomeStore");
-
-            logger.info("Registering SetHomeCommand");
-            PluginCommand setHome = Objects.requireNonNull(this.getCommand("sethome"));
-            setHome.setExecutor(new SetHomeCommand(logger, userHomeStore));
-            setHome.setTabCompleter(new EmptyTabCompleter());
-            logger.info("SetHomeCommand Registered");
-
-//            logger.info("Registering HomeCommand");
-//            Objects.requireNonNull(this.getCommand("home")).setExecutor(new HomeCommand(logger, userLocationStore));
-//            logger.info("HomeCommand Registered");
-//            logger.info("Registering BackCmd");
-//            Objects.requireNonNull(this.getCommand("back")).setExecutor(new BackCommand(logger, userLocationStore));
-//            logger.info("BackCommand Registered");
         } catch (IOException e) {
-            logger.error("Error registering Commands/LocationStore");
+            logger.error("Error Parsing data from datafile");
             throw new RuntimeException(e);
         }
 
+        // Data file parsed, register commands
+        logger.info("Registering commands");
+        registerPlugin("sethome", new SetHomeCommand(logger, userHomeStore), new EmptyTabCompleter());
+        registerPlugin("listhome", new ListHomeCommand(logger, userHomeStore), new EmptyTabCompleter());
+        logger.info("Commands registered");
     }
 
     @Override
@@ -99,6 +90,16 @@ public final class TakeMeHome extends JavaPlugin {
             logger.info("Error saving player home data");
             throw new RuntimeException(e);
         }
+    }
+
+    private void registerPlugin(String pluginName, BaseCommand command, TabCompleter completer) {
+        String commandClassName = command.getClass().getSimpleName();
+        String tabCompleterClassName = completer.getClass().getSimpleName();
+        logger.info("Registering Command: " + commandClassName + " with TabCompleter: " + tabCompleterClassName);
+        PluginCommand listHome = Objects.requireNonNull(this.getCommand(pluginName));
+        listHome.setExecutor(command);
+        listHome.setTabCompleter(completer);
+        logger.info(command + " with tab completer " + tabCompleterClassName + " registered");
     }
 
     private UserHomeStore migrateFromUserLocationStore(File dataFile) {

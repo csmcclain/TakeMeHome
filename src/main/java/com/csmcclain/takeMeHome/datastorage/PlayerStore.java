@@ -1,6 +1,8 @@
 package com.csmcclain.takeMeHome.datastorage;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class PlayerStore {
     private final Map<String, PlayerHome> savedHomes;
@@ -19,6 +21,10 @@ public class PlayerStore {
 
     public void saveHome(String houseName, PlayerHome home) {
         savedHomes.put(houseName, home);
+    }
+
+    public Set<String> getHomes() {
+        return savedHomes.keySet();
     }
 
     public PlayerHome getPreviousLocation() {

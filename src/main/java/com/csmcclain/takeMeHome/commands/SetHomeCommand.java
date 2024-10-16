@@ -12,14 +12,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-public class SetHomeCommand implements CommandExecutor {
-
-    private final ComponentLogger logger;
-    private final UserHomeStore userHomeStore;
+public class SetHomeCommand extends BaseCommand {
 
     public SetHomeCommand(ComponentLogger logger, UserHomeStore userHomeStore) {
-        this.logger = logger;
-        this.userHomeStore = userHomeStore;
+        super(logger, userHomeStore);
     }
 
     @Override

@@ -3,12 +3,15 @@ version: '1.0.0-SNAPSHOT'
 main: com.csmcclain.takeMeHome.TakeMeHome
 api-version: '1.21.0'
 commands:
-  sethome:
-    description: Adds a location to the player's home locations
-    usage: "Usage: /sethome <home-name>"
   home:
     description: Take you home
     usage: /home
+  sethome:
+    description: Adds a location to the player's home locations
+    usage: "Usage: /sethome <home-name>"
+  listhome:
+    description: Lists player's home locations
+    usage: "/listhomes"
   back:
     description: Take you back
     usage: /back

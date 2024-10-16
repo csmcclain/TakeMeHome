@@ -1,4 +1,4 @@
-package com.csmcclain.takeMeHome.commands;
+package com.csmcclain.takeMeHome.tabcompleters;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
