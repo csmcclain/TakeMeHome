@@ -1,22 +1,22 @@
 name: TakeMeHome
 version: '1.1.0-SNAPSHOT'
 main: com.csmcclain.takeMeHome.TakeMeHome
-api-version: '1.21.0'
+api-version: '1.21.1'
 commands:
   home:
-    description: Take you home
-    usage: /home
+    description: Takes a player to their specified home
+    usage: "Usage: /home <optional home name if not teleporting to default>"
   sethome:
-    description: Adds a location to the player's home locations
-    usage: "Usage: /sethome <home-name>"
+    description: Adds a home to the player's saved homes
+    usage: "Usage: /sethome <home>"
   listhome:
-    description: Lists player's home locations
+    description: Lists player's saved homes
     usage: "Usage: /listhomes"
   updatehome:
-    description: Updates player's home with new location
+    description: Updates a player's home with new location
     usage: "Usage: /updatehome <home>"
   removehome:
-    description: Removes home with <name> from players home
+    description: Removes home from player's saved homes
     usage: "Usage: /removehome <home>"
   setdefaulthome:
     description: Sets a player's default home

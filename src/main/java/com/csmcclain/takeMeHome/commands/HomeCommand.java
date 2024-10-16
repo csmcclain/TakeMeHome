@@ -1,63 +1,62 @@
 package com.csmcclain.takeMeHome.commands;
 
-import com.csmcclain.takeMeHome.datastorage.StoredLocation;
-import com.csmcclain.takeMeHome.datastorage.UserLocationStore;
+import com.csmcclain.takeMeHome.datastorage.PlayerHome;
+import com.csmcclain.takeMeHome.datastorage.PlayerStore;
+import com.csmcclain.takeMeHome.datastorage.UserHomeStore;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.logger.slf4j.ComponentLogger;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
-import java.util.UUID;
+public class HomeCommand extends BaseCommand {
 
-public class HomeCommand implements CommandExecutor {
-
-    private final ComponentLogger logger;
-    private final UserLocationStore locationStore;
-
-    public HomeCommand(ComponentLogger logger, UserLocationStore locationStore) throws IOException {
-        this.logger = logger;
-        this.locationStore = locationStore;
+    public HomeCommand(ComponentLogger logger, UserHomeStore userHomeStore) {
+        super(logger, userHomeStore);
     }
-
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (!(sender instanceof Player player)) {
+        if (!(sender instanceof Player player) || args.length > 1) {
             return false;
         }
-        UUID uuid = player.getUniqueId();
-        StoredLocation storedLocation = locationStore.getUserLocationStore(uuid);
+
+        PlayerStore playerstore = userHomeStore.getPlayerStore(player.getUniqueId());
+        String locationName;
+        String errorText;
+        PlayerHome locationToTeleportTo;
 
         if (args.length == 0) {
-            // TP player to home if exists
-            if (storedLocation == null) {
-                logger.debug("{} does not have a home/back locations set", uuid);
-                player.sendMessage(Component.text("You have not set a home/back yet", NamedTextColor.RED));
-                return true;
-            }
-            storedLocation.setBack(player.getLocation());
-            locationStore.setUserLocationStore(uuid, storedLocation);
-            player.teleportAsync(storedLocation.getHome()).thenAccept(success -> {
-                logger.info("{} was teleported successfully", player.getUniqueId());
-                player.sendMessage(Component.text("You've been teleported home", NamedTextColor.GRAY));
-            });
-        } else if (args.length == 1 && args[0].equals("set")) {
-            Location location = player.getLocation();
-            if (storedLocation == null) {
-                storedLocation = new StoredLocation(location, location);
-            }
-            storedLocation.setHome(location);
-            player.sendMessage(Component.text("You have set home", NamedTextColor.GRAY));
-            locationStore.setUserLocationStore(uuid, storedLocation);
-
+            locationName = playerstore.getDefaultHomeName();
+            errorText = "No default home set.\nPlease set one using /setdefaulthome.";
         } else {
-            return false;
+            locationName = args[0];
+            errorText = "No home with name " + args[0] + " found.";
+        }
+
+        locationToTeleportTo = playerstore.getHome(locationName);
+
+        if (locationToTeleportTo == null) {
+            player.sendMessage(Component.text(errorText, NamedTextColor.RED));
+        } else {
+            player.teleportAsync(
+                    new Location(
+                            Bukkit.getWorld(locationToTeleportTo.getWorldName()),
+                            locationToTeleportTo.getX(),
+                            locationToTeleportTo.getY(),
+                            locationToTeleportTo.getZ()
+                    )
+            ).thenAccept(success -> {
+                if (success) {
+                    player.sendMessage(
+                            Component.text("You have been teleported to: " + locationName, NamedTextColor.GRAY)
+                    );
+                }
+            });
         }
 
         return true;

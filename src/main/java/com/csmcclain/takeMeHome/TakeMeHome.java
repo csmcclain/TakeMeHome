@@ -1,6 +1,7 @@
 package com.csmcclain.takeMeHome;
 
 import com.csmcclain.takeMeHome.commands.BaseCommand;
+import com.csmcclain.takeMeHome.commands.HomeCommand;
 import com.csmcclain.takeMeHome.commands.ListHomeCommand;
 import com.csmcclain.takeMeHome.commands.RemoveDefaultHomeCommand;
 import com.csmcclain.takeMeHome.commands.RemoveHomeCommand;
@@ -84,6 +85,10 @@ public final class TakeMeHome extends JavaPlugin {
 
         // Data file parsed, register commands
         logger.info("Registering commands");
+        registerPlugin("home",
+                new HomeCommand(logger, userHomeStore),
+                new PlayerHomesTabCompleter(userHomeStore)
+        );
         registerPlugin("sethome", new SetHomeCommand(logger, userHomeStore), new EmptyTabCompleter());
         registerPlugin("listhome", new ListHomeCommand(logger, userHomeStore), new EmptyTabCompleter());
         registerPlugin(
@@ -143,17 +148,18 @@ public final class TakeMeHome extends JavaPlugin {
                 newSave.put(uuid, new PlayerStore(
                         Map.ofEntries(Map.entry("home",
                                 new PlayerHome(
+                                        storedLocation.getWorldNameHome(),
                                         storedLocation.getxHome(),
                                         storedLocation.getyHome(),
-                                        storedLocation.getzHome(),
-                                        storedLocation.getWorldNameHome()
+                                        storedLocation.getzHome()
+
                                 )
                         )),
                         new PlayerHome(
+                                storedLocation.getWorldNameBack(),
                                 storedLocation.getxBack(),
                                 storedLocation.getyBack(),
-                                storedLocation.getzBack(),
-                                storedLocation.getWorldNameBack()
+                                storedLocation.getzBack()
                         ),
                         "home"
                 ));

@@ -1,16 +1,22 @@
 package com.csmcclain.takeMeHome.datastorage;
 
 public class PlayerHome {
+
+    private final String worldName;
     private final double x;
     private final double y;
     private final double z;
-    private final String worldNameHome;
 
-    public PlayerHome(double x, double y, double z, String worldNameHome) {
+
+    public PlayerHome(String worldName, double x, double y, double z) {
+        this.worldName = worldName;
         this.x = x;
         this.y = y;
         this.z = z;
-        this.worldNameHome = worldNameHome;
+    }
+
+    public String getWorldName() {
+        return worldName;
     }
 
     public double getX() {
@@ -23,9 +29,5 @@ public class PlayerHome {
 
     public double getZ() {
         return z;
-    }
-
-    public String getWorldNameHome() {
-        return worldNameHome;
     }
 }

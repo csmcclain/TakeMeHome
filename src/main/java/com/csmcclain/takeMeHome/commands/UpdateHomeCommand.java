@@ -32,7 +32,7 @@ public class UpdateHomeCommand extends BaseCommand {
             );
         } else {
             playerStore.saveHome(homeName, new PlayerHome(
-                    player.getX(), player.getY(), player.getZ(), player.getWorld().getName()
+                    player.getWorld().getName(), player.getX(), player.getY(), player.getZ()
             ));
             player.sendMessage(
                     Component.text("Successfully updated: " + homeName, NamedTextColor.GRAY)

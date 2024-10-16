@@ -7,7 +7,6 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.logger.slf4j.ComponentLogger;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -36,10 +35,10 @@ public class SetHomeCommand extends BaseCommand {
             playerStore.saveHome(
                     args[0],
                     new PlayerHome(
+                            player.getWorld().getName(),
                             player.getX(),
                             player.getY(),
-                            player.getZ(),
-                            player.getWorld().getName()
+                            player.getZ()
                     )
             );
 
