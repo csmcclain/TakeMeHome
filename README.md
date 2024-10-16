@@ -14,7 +14,7 @@ To install TakeMeHome place the `takemehome-<VERSION>.jar` file in your `<PaperM
 
 ## How To Build
 
-If you would prefer to build the plugin yourself you can follow the following steps.
+If you prefer to build the plugin yourself you can follow the following steps.
 
 ### 1. Install Maven
 
