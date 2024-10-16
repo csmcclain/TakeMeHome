@@ -33,12 +33,12 @@ public class ListHomeCommand extends BaseCommand {
         } else {
             Component finalMessage = Component.text(
                     "You have set the following homes: ", NamedTextColor.GRAY
-            ).appendNewline();
+            );
 
             String defaultHouseName = playerStore.getDefaultHomeName();
 
             for (String houseName : houseNames) {
-                finalMessage = finalMessage.append(
+                finalMessage = finalMessage.appendNewline().append(
                         Component.text("- " + houseName, NamedTextColor.GRAY)
                 );
 
@@ -47,7 +47,6 @@ public class ListHomeCommand extends BaseCommand {
                             Component.text(" [default]", NamedTextColor.GRAY)
                     );
                 }
-                finalMessage = finalMessage.appendNewline();
             }
 
             player.sendMessage(finalMessage);
