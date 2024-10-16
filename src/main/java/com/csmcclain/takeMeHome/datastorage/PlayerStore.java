@@ -22,6 +22,10 @@ public class PlayerStore {
         savedHomes.put(houseName, home);
     }
 
+    public void removeHome(String houseName) {
+        savedHomes.remove(houseName);
+    }
+
     public Set<String> getHomes() {
         return savedHomes.keySet();
     }

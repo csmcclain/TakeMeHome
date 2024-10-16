@@ -13,11 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class UpdateHomeTabCompleter implements TabCompleter {
+public class PlayerHomesTabCompleter implements TabCompleter {
 
     private final UserHomeStore userHomeStore;
 
-    public UpdateHomeTabCompleter(UserHomeStore userHomeStore) {
+    public PlayerHomesTabCompleter(UserHomeStore userHomeStore) {
         this.userHomeStore = userHomeStore;
     }
 

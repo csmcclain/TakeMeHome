@@ -15,6 +15,9 @@ commands:
   updatehome:
     description: Updates player's home with new location
     usage: "Usage: /updatehome <home>"
+  removehome:
+    description: Removes home with <name> from players home
+    usage: "Usage: /removehome <home>"
   back:
     description: Take you back
     usage: /back
