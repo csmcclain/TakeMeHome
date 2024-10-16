@@ -1,8 +1,16 @@
 package com.csmcclain.takeMeHome;
 
-import com.csmcclain.takeMeHome.commands.*;
-import com.csmcclain.takeMeHome.datastorage.*;
+import com.csmcclain.takeMeHome.commands.BaseCommand;
+import com.csmcclain.takeMeHome.commands.ListHomeCommand;
+import com.csmcclain.takeMeHome.commands.SetHomeCommand;
+import com.csmcclain.takeMeHome.commands.UpdateHomeCommand;
+import com.csmcclain.takeMeHome.datastorage.PlayerHome;
+import com.csmcclain.takeMeHome.datastorage.PlayerStore;
+import com.csmcclain.takeMeHome.datastorage.StoredLocation;
+import com.csmcclain.takeMeHome.datastorage.UserHomeStore;
+import com.csmcclain.takeMeHome.datastorage.UserLocationStore;
 import com.csmcclain.takeMeHome.tabcompleters.EmptyTabCompleter;
+import com.csmcclain.takeMeHome.tabcompleters.UpdateHomeTabCompleter;
 import com.google.gson.Gson;
 import net.kyori.adventure.text.logger.slf4j.ComponentLogger;
 import org.bukkit.command.PluginCommand;
@@ -75,6 +83,11 @@ public final class TakeMeHome extends JavaPlugin {
         logger.info("Registering commands");
         registerPlugin("sethome", new SetHomeCommand(logger, userHomeStore), new EmptyTabCompleter());
         registerPlugin("listhome", new ListHomeCommand(logger, userHomeStore), new EmptyTabCompleter());
+        registerPlugin(
+                "updatehome",
+                new UpdateHomeCommand(logger, userHomeStore),
+                new UpdateHomeTabCompleter(userHomeStore)
+        );
         logger.info("Commands registered");
     }
 
@@ -99,7 +112,7 @@ public final class TakeMeHome extends JavaPlugin {
         PluginCommand listHome = Objects.requireNonNull(this.getCommand(pluginName));
         listHome.setExecutor(command);
         listHome.setTabCompleter(completer);
-        logger.info(command + " with tab completer " + tabCompleterClassName + " registered");
+        logger.info(commandClassName + " with tab completer " + tabCompleterClassName + " registered");
     }
 
     private UserHomeStore migrateFromUserLocationStore(File dataFile) {

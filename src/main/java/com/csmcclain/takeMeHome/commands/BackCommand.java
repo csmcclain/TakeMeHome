@@ -29,6 +29,7 @@ public class BackCommand implements CommandExecutor {
         if (!(sender instanceof Player player)) {
             return false;
         }
+
         UUID uuid = player.getUniqueId();
         StoredLocation storedLocation = locationStore.getUserLocationStore(uuid);
 
