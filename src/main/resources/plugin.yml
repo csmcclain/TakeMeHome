@@ -21,6 +21,9 @@ commands:
   setdefaulthome:
     description: Sets a player's default home
     usage: "Usage: /setdefaulthome <home>"
+  removedefaulthome:
+    description: Removes a player's default home
+    usage: "Usage: /removedefaulthome"
   back:
     description: Take you back
     usage: /back
