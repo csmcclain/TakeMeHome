@@ -3,6 +3,7 @@ package com.csmcclain.takeMeHome;
 import com.csmcclain.takeMeHome.commands.BaseCommand;
 import com.csmcclain.takeMeHome.commands.ListHomeCommand;
 import com.csmcclain.takeMeHome.commands.RemoveHomeCommand;
+import com.csmcclain.takeMeHome.commands.SetDefaultHomeCommand;
 import com.csmcclain.takeMeHome.commands.SetHomeCommand;
 import com.csmcclain.takeMeHome.commands.UpdateHomeCommand;
 import com.csmcclain.takeMeHome.datastorage.PlayerHome;
@@ -92,6 +93,11 @@ public final class TakeMeHome extends JavaPlugin {
         registerPlugin(
                 "removehome",
                 new RemoveHomeCommand(logger, userHomeStore),
+                new PlayerHomesTabCompleter(userHomeStore)
+        );
+        registerPlugin(
+                "setdefaulthome",
+                new SetDefaultHomeCommand(logger, userHomeStore),
                 new PlayerHomesTabCompleter(userHomeStore)
         );
         logger.info("Commands registered");

@@ -1,6 +1,5 @@
 package com.csmcclain.takeMeHome.commands;
 
-import com.csmcclain.takeMeHome.datastorage.PlayerHome;
 import com.csmcclain.takeMeHome.datastorage.PlayerStore;
 import com.csmcclain.takeMeHome.datastorage.UserHomeStore;
 import net.kyori.adventure.text.Component;
@@ -11,9 +10,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-public class RemoveHomeCommand extends BaseCommand {
+public class SetDefaultHomeCommand extends BaseCommand {
 
-    public RemoveHomeCommand(ComponentLogger logger, UserHomeStore userHomeStore) {
+    public SetDefaultHomeCommand(ComponentLogger logger, UserHomeStore userHomeStore) {
         super(logger, userHomeStore);
     }
 
@@ -25,27 +24,17 @@ public class RemoveHomeCommand extends BaseCommand {
 
         String homeName = args[0];
         PlayerStore playerStore = userHomeStore.getPlayerStore(player.getUniqueId());
-        PlayerHome playerHome = playerStore.getHome(homeName);
 
-        if (playerHome == null) {
+        if (playerStore.getHome(homeName) == null) {
             player.sendMessage(
                     Component.text("You do not have a home set with name: " + homeName, NamedTextColor.RED)
             );
         } else {
-            playerStore.removeHome(homeName);
-
-            Component finalMessage = Component.text(
-                    "Successfully removed home with name: " + homeName, NamedTextColor.GRAY
+            playerStore.setDefaultHomeName(homeName);
+            player.sendMessage(
+                    Component.text(
+                    "Successfully set default home to: " + homeName, NamedTextColor.GRAY)
             );
-
-            if (homeName.equals(playerStore.getDefaultHomeName())) {
-                playerStore.setDefaultHomeName("");
-                finalMessage = finalMessage.appendNewline().append(
-                        Component.text("You default has been reset", NamedTextColor.GRAY)
-                );
-            }
-
-            player.sendMessage(finalMessage);
         }
 
         return true;

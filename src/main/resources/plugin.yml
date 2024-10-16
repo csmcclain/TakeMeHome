@@ -18,6 +18,9 @@ commands:
   removehome:
     description: Removes home with <name> from players home
     usage: "Usage: /removehome <home>"
+  setdefaulthome:
+    description: Sets a player's default home
+    usage: "Usage: /setdefaulthome <home>"
   back:
     description: Take you back
     usage: /back

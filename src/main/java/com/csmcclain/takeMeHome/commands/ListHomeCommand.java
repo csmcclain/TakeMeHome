@@ -1,5 +1,6 @@
 package com.csmcclain.takeMeHome.commands;
 
+import com.csmcclain.takeMeHome.datastorage.PlayerStore;
 import com.csmcclain.takeMeHome.datastorage.UserHomeStore;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -24,14 +25,32 @@ public class ListHomeCommand extends BaseCommand {
             return false;
         }
 
-        Set<String> houseNames = userHomeStore.getPlayerStore(player.getUniqueId()).getHomes();
+        PlayerStore playerStore = userHomeStore.getPlayerStore(player.getUniqueId());
+        Set<String> houseNames = playerStore.getHomes();
 
         if (houseNames.isEmpty()) {
             player.sendMessage(Component.text("You do not have any set homes", NamedTextColor.GRAY));
         } else {
-            player.sendMessage(
-                    Component.text("You have set the following homes: " + houseNames, NamedTextColor.GRAY)
-            );
+            Component finalMessage = Component.text(
+                    "You have set the following homes: ", NamedTextColor.GRAY
+            ).appendNewline();
+
+            String defaultHouseName = playerStore.getDefaultHomeName();
+
+            for (String houseName : houseNames) {
+                finalMessage = finalMessage.append(
+                        Component.text("- " + houseName, NamedTextColor.GRAY)
+                );
+
+                if (houseName.equals(defaultHouseName)) {
+                    finalMessage = finalMessage.append(
+                            Component.text(" [default]", NamedTextColor.GRAY)
+                    );
+                }
+                finalMessage = finalMessage.appendNewline();
+            }
+
+            player.sendMessage(finalMessage);
         }
 
         return true;
