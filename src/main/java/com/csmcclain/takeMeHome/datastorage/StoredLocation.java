@@ -3,6 +3,7 @@ package com.csmcclain.takeMeHome.datastorage;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
+@Deprecated
 public class StoredLocation {
     private double xHome;
     private double yHome;

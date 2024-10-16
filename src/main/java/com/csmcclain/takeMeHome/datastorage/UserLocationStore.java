@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+@Deprecated
 public class UserLocationStore {
 
     private final Map<UUID, StoredLocation> locationStore;
@@ -30,6 +31,10 @@ public class UserLocationStore {
 
     public StoredLocation getUserLocationStore(UUID uuid) {
         return locationStore.get(uuid);
+    }
+
+    public Map<UUID, StoredLocation> getLocationStore() {
+        return locationStore;
     }
 
     public void saveUserStore() throws IOException {
