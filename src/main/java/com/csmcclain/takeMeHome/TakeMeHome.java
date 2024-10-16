@@ -1,5 +1,6 @@
 package com.csmcclain.takeMeHome;
 
+import com.csmcclain.takeMeHome.commands.BackCommand;
 import com.csmcclain.takeMeHome.commands.BaseCommand;
 import com.csmcclain.takeMeHome.commands.HomeCommand;
 import com.csmcclain.takeMeHome.commands.ListHomeCommand;
@@ -111,6 +112,7 @@ public final class TakeMeHome extends JavaPlugin {
                 new RemoveDefaultHomeCommand(logger, userHomeStore),
                 new EmptyTabCompleter()
         );
+        registerPlugin("back", new BackCommand(logger, userHomeStore), new EmptyTabCompleter());
         logger.info("Commands registered");
     }
 

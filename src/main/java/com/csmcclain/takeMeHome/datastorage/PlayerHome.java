@@ -1,5 +1,8 @@
 package com.csmcclain.takeMeHome.datastorage;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+
 public class PlayerHome {
 
     private final String worldName;
@@ -15,19 +18,12 @@ public class PlayerHome {
         this.z = z;
     }
 
-    public String getWorldName() {
-        return worldName;
-    }
-
-    public double getX() {
-        return x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public double getZ() {
-        return z;
+    public Location toLocation() {
+        return new Location(
+                Bukkit.getWorld(worldName),
+                x,
+                y,
+                z
+        );
     }
 }

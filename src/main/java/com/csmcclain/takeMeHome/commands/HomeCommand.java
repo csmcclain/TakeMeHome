@@ -6,8 +6,6 @@ import com.csmcclain.takeMeHome.datastorage.UserHomeStore;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.logger.slf4j.ComponentLogger;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -39,19 +37,21 @@ public class HomeCommand extends BaseCommand {
         }
 
         locationToTeleportTo = playerstore.getHome(locationName);
+        PlayerHome currentLocation = new PlayerHome(
+                player.getWorld().getName(),
+                player.getX(),
+                player.getY(),
+                player.getZ()
+        );
 
         if (locationToTeleportTo == null) {
             player.sendMessage(Component.text(errorText, NamedTextColor.RED));
         } else {
             player.teleportAsync(
-                    new Location(
-                            Bukkit.getWorld(locationToTeleportTo.getWorldName()),
-                            locationToTeleportTo.getX(),
-                            locationToTeleportTo.getY(),
-                            locationToTeleportTo.getZ()
-                    )
+                    locationToTeleportTo.toLocation()
             ).thenAccept(success -> {
                 if (success) {
+                    playerstore.setPreviousLocation(currentLocation);
                     player.sendMessage(
                             Component.text("You have been teleported to: " + locationName, NamedTextColor.GRAY)
                     );

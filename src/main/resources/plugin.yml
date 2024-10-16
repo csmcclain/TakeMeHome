@@ -25,5 +25,5 @@ commands:
     description: Removes a player's default home
     usage: "Usage: /removedefaulthome"
   back:
-    description: Take you back
-    usage: /back
+    description: Takes a player back to the last location they teleported from
+    usage: "Usage: /back"
