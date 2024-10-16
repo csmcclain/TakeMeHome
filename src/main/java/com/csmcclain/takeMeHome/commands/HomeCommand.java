@@ -1,5 +1,7 @@
-package com.csmcclain.takeMeHome;
+package com.csmcclain.takeMeHome.commands;
 
+import com.csmcclain.takeMeHome.datastorage.StoredLocation;
+import com.csmcclain.takeMeHome.datastorage.UserLocationStore;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.logger.slf4j.ComponentLogger;

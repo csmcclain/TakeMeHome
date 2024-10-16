@@ -1,4 +1,4 @@
-package com.csmcclain.takeMeHome;
+package com.csmcclain.takeMeHome.datastorage;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;

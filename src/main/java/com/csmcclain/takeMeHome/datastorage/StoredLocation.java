@@ -1,4 +1,4 @@
-package com.csmcclain.takeMeHome;
+package com.csmcclain.takeMeHome.datastorage;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

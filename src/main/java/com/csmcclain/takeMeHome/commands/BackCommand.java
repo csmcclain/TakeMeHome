@@ -1,9 +1,10 @@
-package com.csmcclain.takeMeHome;
+package com.csmcclain.takeMeHome.commands;
 
+import com.csmcclain.takeMeHome.datastorage.StoredLocation;
+import com.csmcclain.takeMeHome.datastorage.UserLocationStore;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.logger.slf4j.ComponentLogger;
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -29,7 +30,6 @@ public class BackCommand implements CommandExecutor {
             return false;
         }
         UUID uuid = player.getUniqueId();
-        Location location = player.getLocation();
         StoredLocation storedLocation = locationStore.getUserLocationStore(uuid);
 
         if (args.length != 0) {
