@@ -26,6 +26,6 @@ public class ToggleHomeVisibilityCommand extends BaseCommand {
             home.toggleVisibility();
         }
 
-        return false;
+        return true;
     }
 }
