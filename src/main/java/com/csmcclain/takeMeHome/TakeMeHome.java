@@ -1,14 +1,6 @@
 package com.csmcclain.takeMeHome;
 
-import com.csmcclain.takeMeHome.commands.BackCommand;
-import com.csmcclain.takeMeHome.commands.BaseCommand;
-import com.csmcclain.takeMeHome.commands.HomeCommand;
-import com.csmcclain.takeMeHome.commands.ListHomeCommand;
-import com.csmcclain.takeMeHome.commands.RemoveDefaultHomeCommand;
-import com.csmcclain.takeMeHome.commands.RemoveHomeCommand;
-import com.csmcclain.takeMeHome.commands.SetDefaultHomeCommand;
-import com.csmcclain.takeMeHome.commands.SetHomeCommand;
-import com.csmcclain.takeMeHome.commands.UpdateHomeCommand;
+import com.csmcclain.takeMeHome.commands.*;
 import com.csmcclain.takeMeHome.datastorage.PlayerHome;
 import com.csmcclain.takeMeHome.datastorage.PlayerStore;
 import com.csmcclain.takeMeHome.datastorage.depricated.StoredLocation;
@@ -110,6 +102,11 @@ public final class TakeMeHome extends JavaPlugin {
         registerPlugin(
                 "removedefaulthome",
                 new RemoveDefaultHomeCommand(logger, userHomeStore),
+                new EmptyTabCompleter()
+        );
+        registerPlugin(
+                "toggleHomeVisibility",
+                new ToggleHomeVisibilityCommand(logger, userHomeStore),
                 new EmptyTabCompleter()
         );
         registerPlugin("back", new BackCommand(logger, userHomeStore), new EmptyTabCompleter());

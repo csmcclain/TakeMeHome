@@ -27,3 +27,6 @@ commands:
   back:
     description: Takes a player back to the last location they teleported from
     usage: "Usage: /back"
+  togglehomevisibility:
+    description: Sets a home's visibility in the complete options or home list
+    usage: "Usage: /togglehomevisibility <home>"

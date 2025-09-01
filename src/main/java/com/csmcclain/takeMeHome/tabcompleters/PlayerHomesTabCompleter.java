@@ -1,5 +1,6 @@
 package com.csmcclain.takeMeHome.tabcompleters;
 
+import com.csmcclain.takeMeHome.datastorage.PlayerStore;
 import com.csmcclain.takeMeHome.datastorage.UserHomeStore;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -29,10 +30,11 @@ public class PlayerHomesTabCompleter implements TabCompleter {
 
         String currentSelection = args.length == 1 ? args[0] : "";
         List<String> completions = new ArrayList<>();
-        Set<String> homes = userHomeStore.getPlayerStore(player.getUniqueId()).getHomes();
+        PlayerStore playerStore = userHomeStore.getPlayerStore(player.getUniqueId());
+        Set<String> homes = playerStore.getHomes();
 
         StringUtil.copyPartialMatches(currentSelection, homes, completions);
 
-        return completions;
+        return completions.stream().filter(home -> playerStore.getHome(home).isVisible()).toList();
     }
 }

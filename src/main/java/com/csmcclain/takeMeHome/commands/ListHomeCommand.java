@@ -39,6 +39,10 @@ public class ListHomeCommand extends BaseCommand {
             String defaultHouseName = playerStore.getDefaultHomeName();
 
             for (String houseName : houseNames) {
+                if (!playerStore.getHome(houseName).isVisible()) {
+                    continue;
+                }
+
                 finalMessage = finalMessage.appendNewline().append(
                         Component.text("- " + houseName, NamedTextColor.GRAY)
                 );

@@ -9,6 +9,7 @@ public class PlayerHome {
     private final double x;
     private final double y;
     private final double z;
+    private boolean isVisible = true;
 
 
     public PlayerHome(String worldName, double x, double y, double z) {
@@ -25,5 +26,13 @@ public class PlayerHome {
                 y,
                 z
         );
+    }
+
+    public boolean isVisible() {
+        return this.isVisible;
+    }
+
+    public void toggleVisibility() {
+        this.isVisible = !this.isVisible;
     }
 }
